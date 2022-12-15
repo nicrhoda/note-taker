@@ -9,11 +9,20 @@ const path = require('path');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
-app.use(express('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('./'));
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './Develop/public/index.html'));
 });
+app.get('/notes', (req, res) =>  {
+    res.sendFile(path.join(__dirname, 'Develop/public/notes.html'));
+});
+
+app.get('/api/notes', (req, res) => {
+    res.json(jsonNotes);
+});
+
 
 
 app.listen(PORT, () => console.log('server listening on ' + PORT));
